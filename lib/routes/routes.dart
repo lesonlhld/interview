@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../model/blog.dart';
-import '../screens/detail/index.dart';
-import '../screens/home/index.dart';
+import '../screens/detail/detail_screen.dart';
+import '../screens/home/home_screen.dart';
 
 class Routes {
   static Route<dynamic> getRoute(RouteSettings settings) {

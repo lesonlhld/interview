@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../model/blog.dart';
-import '../../detail/index.dart';
+import '../../detail/detail_screen.dart';
 
 class BlogCard extends StatelessWidget {
   final Blog blog;

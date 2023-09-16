@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:interview/providers/blog/blog_model.dart';
 import 'package:interview/routes/routes.dart';
-import 'package:interview/screens/home/index.dart';
+import 'package:interview/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
