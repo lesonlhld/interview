@@ -1,12 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:interview/providers/blog/blog_model.dart';
+import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+import 'widgets/blog_card.dart';
+
+class Home extends StatefulWidget {
   const Home({super.key});
 
   static const routeName = 'home';
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final scrollController = ScrollController();
+
+  Future<void> _onRefresh() async {
+    return context.read<BlogModel>().refreshBlog();
+  }
+
+  void onScroll() {
+    context.read<BlogModel>().getMoreBlogs();
+  }
+
+  @override
+  void initState() {
+    scrollController.addListener(onScroll);
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Consumer<BlogModel>(
+      builder: (context, blogModel, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Home'),
+          ),
+          body: blogModel.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : RefreshIndicator(
+                  onRefresh: _onRefresh,
+                  child: ListView.separated(
+                    controller: scrollController,
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                    itemBuilder: (context, index) {
+                      if (index == blogModel.blogs.length) {
+                        if (blogModel.isLoadMore) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return const Center(child: Text('No more blogs'));
+                      }
+
+                      final blog = blogModel.blogs[index];
+                      return BlogCard(blog: blog);
+                    },
+                    itemCount: blogModel.blogs.length + 1,
+                  ),
+                ),
+        );
+      },
+    );
   }
 }
