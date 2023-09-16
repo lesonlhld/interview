@@ -14,25 +14,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   Future<void> _onRefresh() async {
     return context.read<BlogModel>().refreshBlog();
   }
 
   void onScroll() {
-    context.read<BlogModel>().getMoreBlogs();
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      context.read<BlogModel>().getMoreBlogs();
+    }
   }
 
   @override
   void initState() {
-    scrollController.addListener(onScroll);
+    _scrollController.addListener(onScroll);
     super.initState();
   }
 
   @override
   dispose() {
-    scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -49,7 +52,7 @@ class _HomeState extends State<Home> {
               : RefreshIndicator(
                   onRefresh: _onRefresh,
                   child: ListView.separated(
-                    controller: scrollController,
+                    controller: _scrollController,
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },
