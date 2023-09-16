@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../model/blog.dart';
+import '../screens/detail/index.dart';
 import '../screens/home/index.dart';
 
 class Routes {
@@ -9,6 +11,17 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => const Home(),
         );
+      case Detail.routeName:
+        final argument = settings.arguments;
+        if (argument is Blog) {
+          return MaterialPageRoute(
+            builder: (context) => Detail(
+              blog: argument,
+            ),
+          );
+        }
+
+        return unDefinedRoute();
       default:
         return unDefinedRoute();
     }
