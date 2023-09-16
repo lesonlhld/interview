@@ -39,6 +39,10 @@ class BlogModel extends ChangeNotifier {
   }
 
   Future<void> getMoreBlogs() async {
+    if (_isLoadMore) {
+      return;
+    }
+
     _isLoadMore = true;
     notifyListeners();
 

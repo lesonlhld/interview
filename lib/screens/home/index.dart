@@ -62,7 +62,10 @@ class _HomeState extends State<Home> {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
-                        return const Center(child: Text('No more blogs'));
+                        if (!blogModel.hasMore) {
+                          return const Center(child: Text('No more blogs'));
+                        }
+                        return const SizedBox();
                       }
 
                       final blog = blogModel.blogs[index];
