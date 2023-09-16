@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:interview/app.dart';
 import 'package:interview/providers/blog/blog_model.dart';
 import 'package:interview/routes/routes.dart';
+import 'package:interview/screens/home/index.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         title: 'Interview',
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Routes.getRoute,
-        home: App(),
+        home: Home(),
       ),
     );
   }

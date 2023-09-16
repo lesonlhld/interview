@@ -31,6 +31,10 @@ class _HomeState extends State<Home> {
   void initState() {
     _scrollController.addListener(onScroll);
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => context.read<BlogModel>().getBlogs(),
+    );
   }
 
   @override
